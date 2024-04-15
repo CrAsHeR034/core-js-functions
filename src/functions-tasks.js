@@ -119,7 +119,7 @@ function getPolynom(...coefficients) {
  */
 function memoize(func) {
   const cache = {};
-  return function (...args) {
+  return function memoizedFunction(...args) {
     const key = args.join(',');
     if (key in cache) {
       return cache[key];
@@ -146,7 +146,7 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-  return function () {
+  return function retryFunction() {
     for (let i = 0; i < attempts; i += 1) {
       try {
         return func();
@@ -183,7 +183,7 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return function (...args) {
+  return function loggerFunction(...args) {
     const argsString = args.map((arg) => JSON.stringify(arg)).join(',');
     logFunc(`${func.name}(${argsString}) starts`);
     const result = func(...args);
@@ -206,7 +206,7 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args2) {
+  return function partialUsingArgumentsFunction(...args2) {
     return fn(...args1, ...args2);
   };
 }
